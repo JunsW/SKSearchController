@@ -375,7 +375,17 @@ extension CGRect {
     }
 }
 
+extension UIColor {
+    convenience init(hex: Int) {
+        let r = (hex & 0xff0000) >> 16
+        let g = (hex & 0x00ff00) >> 8
+        let b = hex & 0x0000ff
+        self.init(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 1)
+    }
+}
+
 func ~= (lhs: Bool, rhs: ()->()) {
     if lhs { rhs() }
 }
+
 
