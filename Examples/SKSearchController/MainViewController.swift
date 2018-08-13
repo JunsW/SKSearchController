@@ -45,8 +45,12 @@ class MainViewController: UIViewController {
         searchController.rightIconColor =  UIColor(hex: 0xEE7F79)
         searchController.cursorAndCancelButtonColor = UIColor(hex: 0x333333)
         searchController.textFieldTextColor = UIColor(hex: 0xbbbbbb)
-//        searchController.hideBorderLines = true
+        searchController.hideBorderLines = true
         searchController.textFieldBackgroundColor = UIColor(hex: 0xF9F9FA)
+        
+        searchController.searchTextDidChange = { searchBar, text in
+            print("Content: \(text)")
+        }
     }
 
 }

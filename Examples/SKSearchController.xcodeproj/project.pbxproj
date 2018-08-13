@@ -15,7 +15,7 @@
 		E87A70A2211F2D1D008A09A3 /* SKSearchControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A70A1211F2D1D008A09A3 /* SKSearchControllerTests.swift */; };
 		E87A70AD211F2D1D008A09A3 /* SKSearchControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A70AC211F2D1D008A09A3 /* SKSearchControllerUITests.swift */; };
 		E87A70BB211F2D6F008A09A3 /* SKSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87A70BA211F2D6F008A09A3 /* SKSearchController.swift */; };
-		E8ACAC552121118C008A4354 /* SKSearchEventsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACAC542121118C008A4354 /* SKSearchEventsDispatcher.swift */; };
+		E8ACAC552121118C008A4354 /* SKSearchEventsCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACAC542121118C008A4354 /* SKSearchEventsCenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		E87A70AC211F2D1D008A09A3 /* SKSearchControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSearchControllerUITests.swift; sourceTree = "<group>"; };
 		E87A70AE211F2D1D008A09A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E87A70BA211F2D6F008A09A3 /* SKSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSearchController.swift; sourceTree = "<group>"; };
-		E8ACAC542121118C008A4354 /* SKSearchEventsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSearchEventsDispatcher.swift; sourceTree = "<group>"; };
+		E8ACAC542121118C008A4354 /* SKSearchEventsCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSearchEventsCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				E87A70BA211F2D6F008A09A3 /* SKSearchController.swift */,
-				E8ACAC542121118C008A4354 /* SKSearchEventsDispatcher.swift */,
+				E8ACAC542121118C008A4354 /* SKSearchEventsCenter.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 				E87A708F211F2D19008A09A3 /* MainViewController.swift in Sources */,
 				E87A708D211F2D18008A09A3 /* AppDelegate.swift in Sources */,
 				E87A70BB211F2D6F008A09A3 /* SKSearchController.swift in Sources */,
-				E8ACAC552121118C008A4354 /* SKSearchEventsDispatcher.swift in Sources */,
+				E8ACAC552121118C008A4354 /* SKSearchEventsCenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

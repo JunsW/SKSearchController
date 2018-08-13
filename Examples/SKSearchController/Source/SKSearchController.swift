@@ -49,7 +49,7 @@ class SKSearchController: UISearchController {
     
     // MARK: - 文本输入框
     /// 文本框背景色
-    open var textFieldBackgroundColor: UIColor? {
+    public var textFieldBackgroundColor: UIColor? {
         get {
             if #available(iOS 11.0, *) {
                 return searchFieldBackgroudView?.backgroundColor
@@ -67,7 +67,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 文本框圆角值 系统自带一层10.0圆角值
-    open var textFieldCornerRadius: CGFloat {
+    public var textFieldCornerRadius: CGFloat {
         get {
             return searchFieldBackgroudView?.layer.cornerRadius ?? 0
         }
@@ -77,7 +77,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 是否显示超出边缘的内容
-    open var textFieldClipsToBounds: Bool {
+    public var textFieldClipsToBounds: Bool {
         get {
             return searchField?.clipsToBounds ?? false
         }
@@ -86,7 +86,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 文字颜色
-    open var textFieldTextColor: UIColor? {
+    public var textFieldTextColor: UIColor? {
         get {
             return searchField?.textColor
         }
@@ -95,22 +95,22 @@ class SKSearchController: UISearchController {
         }
     }
     /// 文字字体
-    open var textFieldFont: UIFont? {
+    public var textFieldFont: UIFont? {
         get { return searchField?.font }
         set { searchField?.font = newValue }
     }
     /// 光标和取消按钮颜色 它们自动继承上级视图的tintColor属性
-    open var cursorAndCancelButtonColor: UIColor? {
+    public var cursorAndCancelButtonColor: UIColor? {
         get { return searchBar.tintColor }
         set { searchBar.tintColor = newValue }
     }
     /// 搜索栏 占位符
-    open var placeholder: String? {
+    public var placeholder: String? {
         get { return searchBar.placeholder }
         set { searchBar.placeholder = newValue }
     }
     /// 搜索栏 占位符
-    open var attributedPlaceholder: NSAttributedString? {
+    public var attributedPlaceholder: NSAttributedString? {
         get {
             return searchField?.attributedPlaceholder
         }
@@ -119,7 +119,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 放大镜颜色
-    open var leftIconColor: UIColor? {
+    public var leftIconColor: UIColor? {
         didSet {
             if let color = leftIconColor, let field = searchField {
                 let iconView = field.leftView as! UIImageView
@@ -134,7 +134,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 右边图标颜色
-    open var rightIconColor: UIColor?
+    public var rightIconColor: UIColor?
     
     // MARK: - 取消按钮
     public var showCancelButtonWhileEditing: Bool = true {
@@ -143,17 +143,17 @@ class SKSearchController: UISearchController {
         }
     }
     /// 设置取消按钮
-    open var customizeCancelButton: ((UIButton)->())?
+    public var customizeCancelButton: ((UIButton)->())?
     /// 取消按钮标题，应用于所有点击状态，如果设置了setupCancelButton闭包或者富文本标题则会忽略这个属性
-    open var cancelButtonTitle: String?
+    public var cancelButtonTitle: String?
     /// 取消按钮颜色，应用于所有点击状态，如果设置了setupCancelButton闭包或者富文本标题则会忽略这个属性
-    open var cancelButtonColor: UIColor?
+    public var cancelButtonColor: UIColor?
     /// iOS11有效。取消按钮富文本标题，应用于所有点击状态，如果设置了setupCancelButton闭包则会忽略这个属性
-    open var cencelButtonAttributedTitle: NSAttributedString?
+    public var cencelButtonAttributedTitle: NSAttributedString?
 
     // MARK: - iOS 10 设置
     /// 是否隐藏搜索框的上下两条黑线
-    open var hideBorderLines: Bool? {
+    public var hideBorderLines: Bool? {
         willSet {
             if newValue == true {
                 searchBar.backgroundImage = UIImage()
@@ -161,7 +161,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// iOS10 搜索条背景色, 如果导航栏是有模糊特效的颜色会不一样。 iOS11 的背景色通过导航栏的背景色来设置
-    open var barBackgroundColor: UIColor? {
+    public var barBackgroundColor: UIColor? {
         willSet {
             if #available(iOS 11.0, *) {
             } else {
@@ -172,7 +172,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 导航栏和搜索条背景色，关闭导航栏模糊特效
-    open var universalBackgoundColor: UIColor? {
+    public var universalBackgoundColor: UIColor? {
         willSet {
             if let bar = navigationController?.navigationBar {
                 bar.barTintColor = newValue
@@ -211,7 +211,7 @@ class SKSearchController: UISearchController {
     }
     
     // MARK: - SearchBar代理事件闭包
-    public var searchBarEventsCenter = SKSearchEventsDispatcher()
+    private var searchBarEventsCenter = SKSearchEventsCenter()
     
     typealias EmptySearchBarHandler = (UISearchBar)->()
     typealias BoolSearchBarHandler = (UISearchBar)->(Bool)
@@ -257,7 +257,6 @@ class SKSearchController: UISearchController {
     private func setupCancelButton(searchBar: UISearchBar) {
         if showCancelButtonWhileEditing {
             searchBar.setShowsCancelButton(true, animated: true)
-            print("[FSSearchBarController]: 查找替换取消按钮")
             for view in searchBar.subviews[0].subviews {
                 if view is UIButton {
                     let button = view as! UIButton
