@@ -5,7 +5,8 @@
 A Wrap for UISearchController makes all customization super easy.
 
 ## Demo
-Dwonload and check out the demo project.  
+Dwonload and check out the demo project. 
+
 ![iOS 11](https://github.com/JunsW/SKSearchController/blob/master/Assets/Demo.gif)  
 ## Requirements
 - **iOS** 8.0+
@@ -13,17 +14,17 @@ Dwonload and check out the demo project.
 
 ## Installation
 ### Cocoapods
-`Pod `
+`Pod SKSearchController`
 ### Manual
 Download two `.swift` files in _Source_.
 
 ## Usage
-1. Initialization. Toltally same initilizers as `UISearchController`.
-
+#### 1. Initialization.  
+Toltally same initilizers as `UISearchController`  
 `var searchController = SKSearchController(searchResultsController: nil)`  
+#### 2. Setup  
 
-2. Setup.   
-**All the setups must be done in the `ViewDidAppear:`. Some seting would be unavailable otherwise. **
+__All the setups must be done in the `ViewDidAppear:`. Some seting would be unavailable otherwise.__
 
 
 ```
@@ -107,3 +108,5 @@ So set it up like this
 
 Simple and efficient
 
+## Todo
+- [ ] Objective-C version
