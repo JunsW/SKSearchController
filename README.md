@@ -25,8 +25,8 @@ Download two `.swift` files in _Source_.
 Toltally same initilizers as `UISearchController`  
 `var searchController = SKSearchController(searchResultsController: nil)`  
 #### 2. Setup  
-
-__All the setups must be done in the `ViewDidAppear:`. Some seting would be unavailable otherwise.__
+  
+**All the setups must be done in the `ViewDidAppear:`. Some seting would be unavailable otherwise.**
 
 
 ```
