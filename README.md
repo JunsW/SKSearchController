@@ -16,7 +16,7 @@ Dwonload and check out the demo project.
 
 ## Installation
 ### Cocoapods
-`Pod SKSearchController`
+```Pod `SKSearchController` ```
 ### Manual
 Download two `.swift` files in _Source_.
 

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SKSearchController"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "A Wrap for UISearchController makes all customization super easy."
 
   s.description  = <<-DESC
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.license = { type: 'MIT', file: 'LICENSE' }
   s.author             = { "JunsW" => "wjunshuo@qq.com" }
  
-  s.source       = { :git => "https://github.com/JunsW/SKSearchController.git", :tag => "1.0.1" }
+  s.source       = { :git => "https://github.com/JunsW/SKSearchController.git", :tag => "1.0.2" }
   s.source_files  = "Source/*.swift"
 
   s.platform     = :ios, "8.0"
