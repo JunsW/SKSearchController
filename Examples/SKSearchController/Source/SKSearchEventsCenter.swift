@@ -21,6 +21,9 @@ class SKSearchEventsCenter: NSObject {
     internal var searchBarCancelButtonClickHandler: EmptySearchBarHandler?
     internal var searchTextDidChange: ((UISearchBar, String)->())?
     internal var searchTextShouldChangeInRange: ((UISearchBar, NSRange, String)->(Bool))?
+    
+    internal var searchBarBookmarkButtonTapped: EmptySearchBarHandler?
+
 
     internal var showDebugInfo = false
 }
@@ -30,7 +33,7 @@ extension SKSearchEventsCenter: UISearchBarDelegate {
         if let handler = searchBarDidBeginEditingHandler {
             handler(searchBar)
         } else {
-            showDebugInfo ~= { print("[SKSearchBarController]: SearchBar ShouldBeginEditing not Handled") }
+            showDebugInfo ~= { print("[SKSearchBarController]: SearchBar DidBeginEditing not Handled") }
         }
     }
     internal func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -53,7 +56,7 @@ extension SKSearchEventsCenter: UISearchBarDelegate {
         if let handler = searchButtonClickHandler {
             handler(searchBar)
         } else {
-            showDebugInfo ~= { print("[SKSearchBarController]: SearchBar ButtonClickEvent not handled") }
+            showDebugInfo ~= { print("[SKSearchBarController]: SearchBar SearchButtonClickEvent not handled") }
         }
     }
     internal func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -74,8 +77,15 @@ extension SKSearchEventsCenter: UISearchBarDelegate {
         if let handler = searchTextShouldChangeInRange {
             return handler(searchBar, range, text)
         } else {
-            showDebugInfo ~= { print("[SKSearchBarController]: SearchBar CancelButtonClickEvent not Handled") }
+            showDebugInfo ~= { print("[SKSearchBarController]: SearchBar shouldChangeTextEvent not Handled") }
             return true
+        }
+    }
+    internal func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        if let handler = searchBarBookmarkButtonTapped {
+            return handler(searchBar)
+        } else {
+            showDebugInfo ~= { print("[SKSearchBarController]: SearchBar BookmarkButtonClickedEvent not Handled") }
         }
     }
 }

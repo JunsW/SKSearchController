@@ -30,20 +30,25 @@ class MainViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Do the settings here. Some settings could be unavailable otherwise.
+
         setupSearchController()
     }
     func setupSearchController() {
         searchController.placeholder = "SKSearchController Demo"
         searchController.customizeCancelButton = { button in
-            button.setTitle("Punch", for: UIControlState.normal)
+            button.setAttributedTitle(NSAttributedString(string: "Punch", attributes: [.foregroundColor : UIColor.white, .font: UIFont.systemFont(ofSize: 15)]), for: .normal)
             button.backgroundColor = UIColor(hex: 0xEE7F79)
             button.layer.cornerRadius = 4
         }
+
         searchController.barBackgroundColor = UIColor(hex: 0xF9F9FA)
+        
+        searchController.leftIcon = UIImage(named: "football")
         searchController.leftIconColor =  UIColor(hex: 0xEE7F79)
-        searchController.rightIconColor =  UIColor(hex: 0xEE7F79)
-        searchController.cursorAndCancelButtonColor = UIColor(hex: 0x333333)
+        searchController.setRightBookmarkIcon(image: UIImage(named: "speaker"), color: UIColor(hex: 0xEE7F79), for: [UIControlState.normal])
+        searchController.setRightClearIcon(image: UIImage(named: "x"), color: UIColor(hex: 0xEE7F79), for: [UIControlState.normal])
+        
+        searchController.cursorColor = UIColor(hex: 0x333333)
         searchController.textFieldTextColor = UIColor(hex: 0xbbbbbb)
         searchController.hideBorderLines = true
         searchController.textFieldBackgroundColor = UIColor(hex: 0xF9F9FA)
