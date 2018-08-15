@@ -1,5 +1,5 @@
 # SKSearchController
-![Logo](https://user-gold-cdn.xitu.io/2018/8/15/1653cda76cedbd0d)  
+![Logo](https://raw.githubusercontent.com/JunsW/SKSearchController/master/Assets/SKSearchControllerLogo.jpg)  
 
 ![Build Pass](https://img.shields.io/travis/rust-lang/rust.svg)
 ![Language](https://img.shields.io/badge/swift-4.0-orange.svg)
@@ -9,7 +9,7 @@ A Wrap for UISearchController makes all customization super easy.
 ## Demo
 Dwonload and check out the demo project. 
 
-![Demo](https://user-gold-cdn.xitu.io/2018/8/15/1653cda7a5b4318a)  
+![Demo](https://raw.githubusercontent.com/JunsW/SKSearchController/master/Assets/Demo.gif)  
 ## Requirements
 - **iOS** 8.0+
 - **Swift** 4.0+
