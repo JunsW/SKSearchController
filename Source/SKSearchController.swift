@@ -11,12 +11,13 @@ import UIKit
 class SKSearchController: UISearchController {
     
     
-    // MARK: - 私有属性
+    // MARK: - Private properties 私有属性
     /// 搜索条文本框
     private var searchField: UITextField? {
         if let searchField = searchBar.value(forKey: "searchField") as? UITextField {
             return searchField
         } else {
+            print("[SKSearchController]: Failed to get search field");
             return nil
         }
     }
@@ -28,16 +29,7 @@ class SKSearchController: UISearchController {
             return nil
         }
     }
-    /// 文本框清楚按钮
-    private var clearButtonImage: UIImage {
-        let image = UIImage(named: "x")!
-        if let color = rightIconColor, let icon = image.reRender(with: color) {
-            return icon
-        } else {
-            return image
-        }
-        
-    }
+    
     private var navigationBarHeight: CGFloat {
         if #available(iOS 11.0, *) {
             return 0
@@ -47,9 +39,9 @@ class SKSearchController: UISearchController {
     }
     
     
-    // MARK: - 文本输入框
+    // MARK: - Text Field 文本输入框
     /// 文本框背景色
-    open var textFieldBackgroundColor: UIColor? {
+    public var textFieldBackgroundColor: UIColor? {
         get {
             if #available(iOS 11.0, *) {
                 return searchFieldBackgroudView?.backgroundColor
@@ -67,7 +59,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 文本框圆角值 系统自带一层10.0圆角值
-    open var textFieldCornerRadius: CGFloat {
+    public var textFieldCornerRadius: CGFloat {
         get {
             return searchFieldBackgroudView?.layer.cornerRadius ?? 0
         }
@@ -77,7 +69,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 是否显示超出边缘的内容
-    open var textFieldClipsToBounds: Bool {
+    public var textFieldClipsToBounds: Bool {
         get {
             return searchField?.clipsToBounds ?? false
         }
@@ -86,7 +78,7 @@ class SKSearchController: UISearchController {
         }
     }
     /// 文字颜色
-    open var textFieldTextColor: UIColor? {
+    public var textFieldTextColor: UIColor? {
         get {
             return searchField?.textColor
         }
@@ -95,22 +87,22 @@ class SKSearchController: UISearchController {
         }
     }
     /// 文字字体
-    open var textFieldFont: UIFont? {
+    public var textFieldFont: UIFont? {
         get { return searchField?.font }
         set { searchField?.font = newValue }
     }
-    /// 光标和取消按钮颜色 它们自动继承上级视图的tintColor属性
-    open var cursorAndCancelButtonColor: UIColor? {
-        get { return searchBar.tintColor }
-        set { searchBar.tintColor = newValue }
+    /// 光标颜色
+    public var cursorColor: UIColor? {
+        get { return searchField?.tintColor }
+        set { searchField?.tintColor = newValue }
     }
     /// 搜索栏 占位符
-    open var placeholder: String? {
-        get { return searchBar.placeholder }
-        set { searchBar.placeholder = newValue }
+    public var placeholder: String? {
+        get { return searchField?.placeholder }
+        set { searchField?.placeholder = newValue }
     }
     /// 搜索栏 占位符
-    open var attributedPlaceholder: NSAttributedString? {
+    public var attributedPlaceholder: NSAttributedString? {
         get {
             return searchField?.attributedPlaceholder
         }
@@ -119,49 +111,61 @@ class SKSearchController: UISearchController {
         }
     }
     /// 放大镜颜色
-    open var leftIconColor: UIColor? {
+    public var leftIconColor: UIColor? {
         didSet {
-            if let color = leftIconColor, let field = searchField {
-                let iconView = field.leftView as! UIImageView
-                if let pic = iconView.image {
-                    iconView.image = pic.withRenderingMode(.alwaysTemplate)
+            if let color = leftIconColor,
+               let iconView = searchField?.leftView as? UIImageView,
+               let icon = iconView.image {
+                    iconView.image = icon.withRenderingMode(.alwaysTemplate)
                     iconView.tintColor = color
-                } else {
-                    print("----------------")
-                }
             }
 
         }
     }
-    /// 右边图标颜色
-    open var rightIconColor: UIColor?
-    
-    // MARK: - 取消按钮
+    /// 放大镜
+    public var leftIcon: UIImage? {
+        didSet {
+            searchBar.setImage(leftIcon, for: .search, state: UIControlState.normal)
+        }
+    }
+    /// 清除图标
+    public var rightClearIcon: UIImage? {
+        didSet {
+            searchBar.setImage(rightClearIcon, for: .clear, state: .normal)
+        }
+    }
+    /// 右侧Bookmark图标
+    public var rightBookmarkIcon: UIImage? {
+        didSet {
+            searchBar.setImage(rightBookmarkIcon, for: .bookmark, state: .normal)
+        }
+    }
+    // MARK: - Cancel Button 取消按钮
     public var showCancelButtonWhileEditing: Bool = true {
         willSet {
             searchBar.showsCancelButton = newValue
         }
     }
     /// 设置取消按钮
-    open var customizeCancelButton: ((UIButton)->())?
+    public var customizeCancelButton: ((UIButton)->())?
     /// 取消按钮标题，应用于所有点击状态，如果设置了setupCancelButton闭包或者富文本标题则会忽略这个属性
-    open var cancelButtonTitle: String?
+    public var cancelButtonTitle: String?
     /// 取消按钮颜色，应用于所有点击状态，如果设置了setupCancelButton闭包或者富文本标题则会忽略这个属性
-    open var cancelButtonColor: UIColor?
+    public var cancelButtonColor: UIColor?
     /// iOS11有效。取消按钮富文本标题，应用于所有点击状态，如果设置了setupCancelButton闭包则会忽略这个属性
-    open var cencelButtonAttributedTitle: NSAttributedString?
+    public var cancelButtonAttributedTitle: NSAttributedString?
 
-    // MARK: - iOS 10 设置
+    // MARK: - iOS 10 Setup 设置
     /// 是否隐藏搜索框的上下两条黑线
-    open var hideBorderLines: Bool? {
+    public var hideBorderLines: Bool? {
         willSet {
             if newValue == true {
                 searchBar.backgroundImage = UIImage()
             }
         }
     }
-    /// iOS10 搜索条背景色, 如果导航栏是有模糊特效的颜色会不一样。 iOS11 的背景色通过导航栏的背景色来设置
-    open var barBackgroundColor: UIColor? {
+    /// iOS10 SearchBar Background Color 搜索条背景色, 如果导航栏是有模糊特效的颜色会不一样。 iOS11 的背景色通过导航栏的背景色来设置
+    public var barBackgroundColor: UIColor? {
         willSet {
             if #available(iOS 11.0, *) {
             } else {
@@ -171,8 +175,8 @@ class SKSearchController: UISearchController {
             
         }
     }
-    /// 导航栏和搜索条背景色，关闭导航栏模糊特效
-    open var universalBackgoundColor: UIColor? {
+    /// BackgroundColor of NavigationBar & SearchBar 导航栏和搜索条背景色，关闭导航栏模糊特效
+    public var universalBackgoundColor: UIColor? {
         willSet {
             if let bar = navigationController?.navigationBar {
                 bar.barTintColor = newValue
@@ -210,8 +214,8 @@ class SKSearchController: UISearchController {
         return imageView
     }
     
-    // MARK: - SearchBar代理事件闭包
-    public var searchBarEventsCenter = SKSearchEventsDispatcher()
+    // MARK: - SearchBar Delegate Methods 代理事件闭包
+    private var searchBarEventsCenter = SKSearchEventsCenter()
     
     typealias EmptySearchBarHandler = (UISearchBar)->()
     typealias BoolSearchBarHandler = (UISearchBar)->(Bool)
@@ -232,39 +236,39 @@ class SKSearchController: UISearchController {
     public var searchTextDidChange: ((UISearchBar, String)->())?
     public var searchTextShouldChangeInRange: ((UISearchBar, NSRange, String)->(Bool))?
 
+    public var searchBarBookmarkButtonTapped: EmptySearchBarHandler?
+
     
     
-    // MARK: - 私有方法
+    // MARK: - Private Methods私有方法
     private func allControlState(execute: (UIControlState)->()) {
         [UIControlState.normal, UIControlState.selected, UIControlState.highlighted].forEach() {
             execute($0)
         }
     }
-    // MARK: 取消按钮
+    /// Cancel Button 取消按钮
     private func updateCancelButtonSetting() {
-        let tmp = searchBarEventsCenter.searchBarDidBeginEditingHandler
-        searchBarEventsCenter.searchBarDidBeginEditingHandler = { searchBar in
+        let tmp = searchBarShouldBeginEditingHandler
+        searchBarEventsCenter.searchBarShouldBeginEditingHandler = { searchBar in
             self.setupCancelButton(searchBar: searchBar)
-            if let handler = tmp { handler(searchBar) }
-//            else { return true }
+            if let handler = tmp { return handler(searchBar) }
+            else { return true }
         }
     }
     /*
+     Set up the cancel button
      配置取消按钮
-     取消按钮需要在代理searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool中调用
-     
      */
     private func setupCancelButton(searchBar: UISearchBar) {
         if showCancelButtonWhileEditing {
             searchBar.setShowsCancelButton(true, animated: true)
-            print("[FSSearchBarController]: 查找替换取消按钮")
             for view in searchBar.subviews[0].subviews {
                 if view is UIButton {
                     let button = view as! UIButton
                     if let handler = customizeCancelButton {
                         handler(button)
                     } else {
-                        if let attributedTitle = cencelButtonAttributedTitle {
+                        if let attributedTitle = cancelButtonAttributedTitle {
                             allControlState() {
                                 button.setAttributedTitle(attributedTitle, for: $0)
                             }
@@ -284,33 +288,47 @@ class SKSearchController: UISearchController {
             searchBar.setShowsCancelButton(false, animated: false)
         }
     }
-    // MARK: - 左侧放大镜
-    private func updateLeftIconSetting() {
-        if let color = leftIconColor, let field = searchField {
-            let iconView = field.leftView as! UIImageView
-            if let pic = iconView.image {
-                iconView.image = pic.withRenderingMode(.alwaysTemplate)
-                iconView.tintColor = color
-            } else {
-                print("----------------")
-            }
-        }
-        
-    }
-    // MARK: - 右侧小图标
-    private func updateRightIconSetting() {
-        let tmp = searchBarEventsCenter.searchBarDidBeginEditingHandler
-        searchBarEventsCenter.searchBarDidBeginEditingHandler = { searchBar in
-            self.setupRightIcon(searchBar: searchBar)
-            if let handler = tmp { handler(searchBar) }
-        }
-    }
-    private func setupRightIcon(searchBar: UISearchBar) {
-        allControlState() {
-            searchBar.setImage(clearButtonImage, for: UISearchBarIcon.clear, state: $0)
+    
+    private func setIcon(image: UIImage?, color: UIColor?, for states: [UIControlState], position: UISearchBarIcon) {
+        states.forEach() {
+            var icon: UIImage? = image
+            if let c = color, let img = image { icon = img.reRender(with: c) }
+            searchBar.setImage(icon, for: position, state: $0)
         }
     }
     
+    // MARK: - Icons 左右图标设置
+
+    /**
+     - Parameters:
+       - image: The left icon
+       - color: Image will be redrawed if the color is not nil
+       - states: An array of UIControlStates that the image will be applied to
+     */
+    public func setLeftIcon(image: UIImage?, color: UIColor?, for states: [UIControlState]) {
+        setIcon(image: image, color: color, for: states, position: .search)
+    }
+    /**
+     - Parameters:
+     - image: The bookmark icon
+     - color: Image will be redrawed if the color is not nil
+     - states: An array of UIControlStates that the image will be applied to
+     */
+    public func setRightBookmarkIcon(image: UIImage?, color: UIColor?, for states: [UIControlState]) {
+        searchBar.showsBookmarkButton = true
+        setIcon(image: image, color: color, for: states, position: .bookmark)
+    }
+    /**
+     - Parameters:
+     - image: The clear icon
+     - color: Image will be redrawed if the color is not nil
+     - states: An array of UIControlStates that the image will be applied to
+     */
+    public func setRightClearIcon(image: UIImage?, color: UIColor?, for states: [UIControlState]) {
+        setIcon(image: image, color: color, for: states, position: .clear)
+    }
+    
+    // MARK: - Initalizers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -318,7 +336,6 @@ class SKSearchController: UISearchController {
         super.init(searchResultsController: nil)
         
         updateCancelButtonSetting()
-        updateRightIconSetting()
         searchBar.delegate = searchBarEventsCenter
     }
     
@@ -326,27 +343,8 @@ class SKSearchController: UISearchController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-
-        if #available(iOS 11.0, *) {
-            setupSearchBarForIOS11()
-        } else {
-            setupSearchBarForCompatible()
-        }
-    }
-    
-    /// 在ViewDidAppear()中对iOS11导航栏内嵌入搜索框配置样式 子类需要重写来自定义样式
-    func setupSearchBarForIOS11() {
-        
-    }
-    /// 在ViewDidAppear()中对iOS11以下搜索框配置样式 子类需要重写来自定义样式
-    func setupSearchBarForCompatible() {
-        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 extension UIImage {
@@ -369,11 +367,6 @@ extension UIImage {
         }
     }
 }
-extension CGRect {
-    func scale(x: CGFloat, y: CGFloat) -> CGRect {
-        return CGRect(x: 0, y: 0, width: width*x, height: height*y)
-    }
-}
 
 extension UIColor {
     convenience init(hex: Int) {
@@ -387,5 +380,7 @@ extension UIColor {
 func ~= (lhs: Bool, rhs: ()->()) {
     if lhs { rhs() }
 }
+
+
 
 
