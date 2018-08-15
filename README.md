@@ -1,5 +1,5 @@
 # SKSearchController
-![Logo](https://github.com/JunsW/SKSearchController/blob/master/Assets/SKSearchControllerLogo.jpg)  
+![Logo](https://user-gold-cdn.xitu.io/2018/8/15/1653cda76cedbd0d)  
 
 ![Build Pass](https://img.shields.io/travis/rust-lang/rust.svg)
 ![Language](https://img.shields.io/badge/swift-4.0-orange.svg)
@@ -9,7 +9,7 @@ A Wrap for UISearchController makes all customization super easy.
 ## Demo
 Dwonload and check out the demo project. 
 
-![Demo](https://github.com/JunsW/SKSearchController/blob/master/Assets/Demo.gif)  
+![Demo](https://user-gold-cdn.xitu.io/2018/8/15/1653cda7a5b4318a)  
 ## Requirements
 - **iOS** 8.0+
 - **Swift** 4.0+
@@ -34,20 +34,25 @@ __All the setups must be done in the `ViewDidAppear:`. Some seting would be unav
     func setupSearchController() {
         searchController.placeholder = "SKSearchController Demo"
         searchController.customizeCancelButton = { button in
-            button.setTitle("Punch", for: UIControlState.normal)
+            button.setAttributedTitle(NSAttributedString(string: "Punch", attributes: [.foregroundColor : UIColor.white, .font: UIFont.systemFont(ofSize: 15)]), for: .normal)
             button.backgroundColor = UIColor(hex: 0xEE7F79)
             button.layer.cornerRadius = 4
         }
+
         searchController.barBackgroundColor = UIColor(hex: 0xF9F9FA)
+        
+        searchController.leftIcon = UIImage(named: "football")
         searchController.leftIconColor =  UIColor(hex: 0xEE7F79)
-        searchController.rightIconColor =  UIColor(hex: 0xEE7F79)
-        searchController.cursorAndCancelButtonColor = UIColor(hex: 0x333333)
+        searchController.setRightBookmarkIcon(image: UIImage(named: "speaker"), color: UIColor(hex: 0xEE7F79), for: [UIControlState.normal])
+        searchController.setRightClearIcon(image: UIImage(named: "x"), color: UIColor(hex: 0xEE7F79), for: [UIControlState.normal])
+        
+        searchController.cursorColor = UIColor(hex: 0x333333)
         searchController.textFieldTextColor = UIColor(hex: 0xbbbbbb)
         searchController.hideBorderLines = true
         searchController.textFieldBackgroundColor = UIColor(hex: 0xF9F9FA)
         
         searchController.searchTextDidChange = { searchBar, text in
-            print("Content: \(text)")
+            print("Keyword: \(text)")
         }
     }
     
@@ -65,11 +70,9 @@ __All the setups must be done in the `ViewDidAppear:`. Some seting would be unav
 - `textFieldCornerRadius`: corner radius of the `textField`
 - `textFieldTextColor`: text color of `textField`
 - `textFieldFont`: text font of `textField`
-- `cursorColor`: Set cursor color by changing the tint color of the searchBar
+- `cursorColor`: Set cursor color by changing the tint color of the searchField
 - `placeholder`: set up the `placeholder` of the `searchBar`
 - `attributedPlaceholder`: set up the `attributedPlaceholder` of the `textField`
-- `leftIconColor`: the color of the magnifying lens in the `textField`
-- `rightIconColor`: the clear button in the `textField`  
 
 **CancelButton**  
 - `showCancelButtonWhileEditing`: determing whether shows the cancel button or not.
@@ -78,14 +81,32 @@ __All the setups must be done in the `ViewDidAppear:`. Some seting would be unav
 - `cancelButtonColor`: This attribute only valid when `customizeCancelButton` block and `cencelButtonAttributedTitle ` are both `nil` 
 - `cancelButtonTitle`: This attribute only valid when `customizeCancelButton` block and `cencelButtonAttributedTitle` are both `nil`
 
+**Icons**
+- `leftIcon`: Set a image to the left search icon.
+- `rightClearIcon`: Set a image to the clear icon showed while you are typing
+- `rightBookmarkIcon`: Set a image to the bookmark icon showed on the right of the search field.
+
+
 **Bar**    
 
 - `hideBorderLines`: whether hide the upper and lower border line of the `searchBar`
 - `barBackgroundColor`: set the search bar background, only working on iOS 11 and lower
 - `universalBackgoundColor`: set the search bar and the `navigationBar` background. This attribute will also set `searchBar.isTranslucent` to `false` on iOS 11 and lower
 - `hideNavitionBarBottomLine`: whether hide the bottom line of the `navigationBar`
+### 2. Methods
 
-### 2. UISearchBar Delegate
+
+```func setLeftIcon(image: UIImage?, color: UIColor?, for states: [UIControlState])```
+Set a image to the left search icon. The icon will be redered in the color if it's not `nil`.
+
+```func setRightBookmarkIcon(image: UIImage?, color: UIColor?, for states: [UIControlState])```
+Set a image to the right bookmark icon. The icon will be redered in the color if it's not `nil`.
+
+```func setRightClearIcon(image: UIImage?, color: UIColor?, for states: [UIControlState])```
+Set a image to the right clear icon. The icon will be redered in the color if it's not `nil`.
+
+
+### 3. UISearchBar Delegate
 The delegate methods of `UISearchBar` has been convert to closures like below  
 
 

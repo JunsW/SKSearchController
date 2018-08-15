@@ -17,6 +17,7 @@ class SKSearchController: UISearchController {
         if let searchField = searchBar.value(forKey: "searchField") as? UITextField {
             return searchField
         } else {
+            print("[SKSearchController]: Failed to get search field");
             return nil
         }
     }
@@ -90,7 +91,7 @@ class SKSearchController: UISearchController {
         get { return searchField?.font }
         set { searchField?.font = newValue }
     }
-    /// 光标和取消按钮颜色 它们自动继承上级视图的tintColor属性
+    /// 光标颜色
     public var cursorColor: UIColor? {
         get { return searchField?.tintColor }
         set { searchField?.tintColor = newValue }
@@ -133,7 +134,12 @@ class SKSearchController: UISearchController {
             searchBar.setImage(rightClearIcon, for: .clear, state: .normal)
         }
     }
-    
+    /// 右侧Bookmark图标
+    public var rightBookmarkIcon: UIImage? {
+        didSet {
+            searchBar.setImage(rightBookmarkIcon, for: .bookmark, state: .normal)
+        }
+    }
     // MARK: - Cancel Button 取消按钮
     public var showCancelButtonWhileEditing: Bool = true {
         willSet {

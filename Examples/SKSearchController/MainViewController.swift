@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
         searchController.textFieldBackgroundColor = UIColor(hex: 0xF9F9FA)
         
         searchController.searchTextDidChange = { searchBar, text in
-            print("Content: \(text)")
+            print("Keyword: \(text)")
         }
     }
 
