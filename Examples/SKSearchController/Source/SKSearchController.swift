@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SKSearchController: UISearchController {
+public class SKSearchController: UISearchController {
     
     
     // MARK: - Private properties 私有属性
@@ -217,8 +217,8 @@ class SKSearchController: UISearchController {
     // MARK: - SearchBar Delegate Methods 代理事件闭包
     private var searchBarEventsCenter = SKSearchEventsCenter()
     
-    typealias EmptySearchBarHandler = (UISearchBar)->()
-    typealias BoolSearchBarHandler = (UISearchBar)->(Bool)
+    public typealias EmptySearchBarHandler = (UISearchBar)->()
+    public typealias BoolSearchBarHandler = (UISearchBar)->(Bool)
     
     public var searchButtonClickHandler: EmptySearchBarHandler? {
         willSet {
@@ -339,11 +339,11 @@ class SKSearchController: UISearchController {
         searchBar.delegate = searchBarEventsCenter
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
 }
